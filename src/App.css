@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+.section {
+  @apply max-w-7xl mx-auto px-2.5 md:px-7 lg:px-10;
+}
+
+.navbar a:hover {
+  @apply bg-white underline underline-offset-4 decoration-2 decoration-primaryColor;
+  /* background: unset; */
+}
+
+.navbar a:focus {
+  @apply !bg-white;
+}
+
+.active {
+  @apply underline underline-offset-4 decoration-2 decoration-primaryColor;
+  background-color: unset !important;
+  color: black !important;
+}
