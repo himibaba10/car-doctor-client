@@ -11,7 +11,7 @@ const AboutSection = () => {
           alt="Person image"
         />
         <img
-          className="w-1/2 aspect-square object-cover border-8 border-white rounded-lg absolute right-20 -bottom-10"
+          className="w-1/2 aspect-square object-cover border-8 border-white rounded-lg absolute right-20 bottom-0"
           src={aboutimg2}
           alt="Parts image"
         />
