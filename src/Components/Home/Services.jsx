@@ -4,6 +4,7 @@ import ServiceCard from "./ServiceCard";
 
 const Services = () => {
   const [services, setServices] = useState([]);
+  const [displayServices, setDisplayServices] = useState(6);
 
   useEffect(() => {
     axios("/public/services.json").then((data) => setServices(data.data));
@@ -21,11 +22,19 @@ const Services = () => {
           believable.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-        {services.map((service) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12">
+        {services.slice(0, displayServices).map((service) => (
           <ServiceCard key={service._id} service={service} />
         ))}
       </div>
+      {!(services.length === displayServices) && (
+        <button
+          onClick={() => setDisplayServices(services.length)}
+          className="mx-auto block px-6 py-2.5 border-2 border-primaryColor text-primaryColor text-lg font-semibold rounded-lg"
+        >
+          More Services
+        </button>
+      )}
     </div>
   );
 };
