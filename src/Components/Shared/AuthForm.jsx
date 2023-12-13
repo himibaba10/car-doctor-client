@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
 import authImg from "../../assets/images/login/login.svg";
 import { FaFacebookF, FaGoogle, FaLinkedinIn } from "react-icons/fa";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
 
 const AuthForm = ({ objective }) => {
-  const { createUser, signInUser, user, setUser, loading } =
-    useContext(AuthContext);
+  const location = useLocation();
+  const { createUser, signInUser, user, setUser } = useContext(AuthContext);
+  console.log(location.state?.from);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -28,18 +29,15 @@ const AuthForm = ({ objective }) => {
         })
         .catch((err) => console.error(err));
     } else {
-      signInUser(email, password).then((res) => setUser(res.user));
+      console.log("Hi", location.state?.from);
+      signInUser(email, password).then((res) => {
+        setUser(res.user);
+      });
     }
   };
 
-  if (loading) {
-    return (
-      <span className="loading loading-spinner text-primaryColor w-10 block mx-auto"></span>
-    );
-  }
-
   if (user) {
-    return <Navigate to="/" />;
+    return <Navigate to={location.state?.from || "/"} />;
   }
 
   return (

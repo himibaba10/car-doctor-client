@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
+html {
+  scroll-behavior: smooth;
+}
+
 .section {
   @apply max-w-7xl mx-auto px-2.5 md:px-7 lg:px-10;
 }

@@ -7,7 +7,9 @@ const Services = () => {
   const [displayServices, setDisplayServices] = useState(6);
 
   useEffect(() => {
-    axios("/public/services.json").then((data) => setServices(data.data));
+    axios("http://localhost:5000/services").then((data) =>
+      setServices(data.data)
+    );
   }, []);
   return (
     <div className="mt-32">

@@ -1,8 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import cart from "../../assets/icons/cart.svg";
 import search from "../../assets/icons/search.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 const Header = () => {
+  const { user, signOutUser } = useContext(AuthContext);
+
   const navItems = (
     <>
       <li>
@@ -17,15 +21,24 @@ const Header = () => {
       <li>
         <NavLink to="/blog">Blog</NavLink>
       </li>
+      {user && (
+        <li>
+          <NavLink to="/bookings">My Bookings</NavLink>
+        </li>
+      )}
       <li>
-        <NavLink to="/contact">Contact</NavLink>
+        {user ? (
+          <button onClick={signOutUser}>Sign Out</button>
+        ) : (
+          <NavLink to="/login">Login</NavLink>
+        )}
       </li>
     </>
   );
 
   return (
-    <div className="navbar section py-12">
-      <div className="navbar-start">
+    <div className="navbar section py-12 justify-between">
+      <div className="navbar-start w-auto">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
@@ -50,16 +63,16 @@ const Header = () => {
             {navItems}
           </ul>
         </div>
-        <a className="btn btn-ghost h-full">
+        <Link to="/" className="btn btn-ghost h-full">
           <img className="h-20" src={logo} />
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 space-x-4 text-lg font-semibold">
+        <ul className="menu menu-horizontal px-1 space-x-2 text-base font-semibold">
           {navItems}
         </ul>
       </div>
-      <div className="navbar-end gap-5">
+      <div className="navbar-end gap-5 w-auto">
         <img src={cart} />
         <img src={search} />
         <button className="ml-2 btn bg-white border-primaryColor shadow-none px-7 py-3 h-auto text-primaryColor text-lg font-semibold">
