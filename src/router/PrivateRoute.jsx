@@ -2,15 +2,14 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import Loading from "../Components/Shared/Loading";
 
 const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    return (
-      <span className="loading loading-spinner text-primaryColor w-10 block mx-auto"></span>
-    );
+    return <Loading />;
   }
 
   if (!user) {

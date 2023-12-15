@@ -5,11 +5,13 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import { updateProfile } from "firebase/auth";
+import Loading from "./Loading";
+import axios from "axios";
 
 const AuthForm = ({ objective }) => {
   const location = useLocation();
-  const { createUser, signInUser, user, setUser } = useContext(AuthContext);
-  console.log(location.state?.from);
+  const { createUser, signInUser, loading, user, setUser } =
+    useContext(AuthContext);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -29,12 +31,24 @@ const AuthForm = ({ objective }) => {
         })
         .catch((err) => console.error(err));
     } else {
-      console.log("Hi", location.state?.from);
-      signInUser(email, password).then((res) => {
-        setUser(res.user);
-      });
+      signInUser(email, password)
+        .then((res) => {
+          setUser(res.user);
+          const user = { email };
+          axios
+            .post("http://localhost:5000/jwt", user, { withCredentials: true })
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch(console.error);
+        })
+        .catch(console.error);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (user) {
     return <Navigate to={location.state?.from || "/"} />;

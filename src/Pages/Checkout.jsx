@@ -27,6 +27,7 @@ const Checkout = () => {
       product: title,
       img,
       price,
+      status: "Pending",
     };
 
     axios
@@ -39,6 +40,7 @@ const Checkout = () => {
             icon: "success",
             show: true,
           });
+          form.reset();
         }
       })
       .catch(console.error);

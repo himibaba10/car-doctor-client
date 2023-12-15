@@ -8,7 +8,7 @@ import deliveryImg from "../../assets/icons/deliveryt.svg";
 
 const Features = () => {
   return (
-    <div className="mt-32">
+    <div className="my-32">
       <div className="text-center">
         <span className="text-primaryColor text-xl font-bold">
           Core Features

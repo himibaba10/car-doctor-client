@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import ServiceCard from "./ServiceCard";
+import UseAxiosSecure from "../../hooks/UseAxiosSecure";
 
 const Services = () => {
   const [services, setServices] = useState([]);
   const [displayServices, setDisplayServices] = useState(6);
+  const securedAxios = UseAxiosSecure();
 
   useEffect(() => {
-    axios("http://localhost:5000/services").then((data) =>
-      setServices(data.data)
-    );
+    securedAxios("/services")
+      .then((data) => setServices(data.data))
+      .catch(console.error);
   }, []);
   return (
     <div className="mt-32">
@@ -25,7 +27,7 @@ const Services = () => {
         </p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12">
-        {services.slice(0, displayServices).map((service) => (
+        {services.slice(0, displayServices).map?.((service) => (
           <ServiceCard key={service._id} service={service} />
         ))}
       </div>
